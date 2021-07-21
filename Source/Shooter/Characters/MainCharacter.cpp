@@ -3,6 +3,7 @@
 #include "MainCharacter.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 // Sets default values
 AMainCharacter::AMainCharacter()
@@ -16,6 +17,12 @@ AMainCharacter::AMainCharacter()
 
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("Follow Camera"));
 	FollowCamera->SetupAttachment(CameraSpringArm);
+
+	bUseControllerRotationYaw = false;
+	bUseControllerRotationRoll = false;
+	bUseControllerRotationPitch = false;
+
+	GetCharacterMovement()->bOrientRotationToMovement = true;
 }
 
 // Called when the game starts or when spawned
@@ -47,7 +54,7 @@ void AMainCharacter::TurnRate(float Value)
 
 void AMainCharacter::LookUpRate(float Value) 
 {
-	UE_LOG(LogTemp, Warning, TEXT("Hello, %d"), Value);
+	// UE_LOG(LogTemp, Warning, TEXT("Hello, %d"), Value);
 	AddControllerPitchInput(Value * GetWorld()->GetDeltaSeconds() * LookUpScale);
 }
 
