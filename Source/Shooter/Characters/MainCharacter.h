@@ -23,6 +23,9 @@ protected:
 	void MoveRight(float Value);
 	void TurnRate(float Value);
 	void LookUpRate(float Value);
+	void GetOffsetYaw();
+	void Shoot();
+	void LineTraceShoot(FTransform SocketTransform, FVector CrosshairLocation, FVector CrosshairDirection);
 
 public:	
 	// Called every frame
@@ -44,6 +47,17 @@ private:
 	float TurnScale = 50.f;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	float LookUpScale = 50.f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Shooting, meta = (AllowPrivateAccess = "true"))
+	UParticleSystem* MuzzleFlash;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Shooting, meta = (AllowPrivateAccess = "true"))
+	UParticleSystem* BulletImpact;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Shooting, meta = (AllowPrivateAccess = "true"))
+	UParticleSystem* BulletTrail;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Shooting, meta = (AllowPrivateAccess = "true"))
+	class USoundCue* MuzzleFlashCue;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Shooting, meta = (AllowPrivateAccess = "true"))
+	class UAnimMontage* HipFireMontage;
 
 public:
 	USpringArmComponent* GetCameraSpringArm() const { return CameraSpringArm; };
